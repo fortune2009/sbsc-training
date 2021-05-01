@@ -12,8 +12,8 @@ void main() {
       debugShowCheckedModeBanner: false,
       //Styling the app from the root using the THEME widget
       theme: ThemeData(
-        backgroundColor: Colors.grey,
-        primaryColor: Colors.black,
+        backgroundColor: Colors.black,
+        primaryColor: Colors.purple,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               padding: MaterialStateProperty.all(
@@ -21,7 +21,7 @@ void main() {
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                   side: BorderSide(
-                      color: Colors.orange,
+                      color: Colors.purpleAccent,
                       style: BorderStyle.solid,
                       width: 4))),
               backgroundColor: MaterialStateProperty.all(Color(0xFF808080)),
@@ -115,7 +115,7 @@ void main() {
                               text: TextSpan(
                                   text: "Full Name:",
                                   style: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 14, color: Colors.white),
                                   children: [
                                 TextSpan(
                                   text: " Taiwo Adisa Joshua",
@@ -133,7 +133,7 @@ void main() {
                             text: TextSpan(
                                 text: "Contact Info: ",
                                 style: TextStyle(
-                                    fontSize: 14, color: Colors.black),
+                                    fontSize: 14, color: Colors.white),
                                 children: [
                                   TextSpan(
                                     text: " 08122222222\n",
@@ -192,7 +192,6 @@ void main() {
                   ),
                 ),
 
-                //STYlE out button
                 Builder(
                   builder: (context) => ElevatedButton(
                     child: Text(
