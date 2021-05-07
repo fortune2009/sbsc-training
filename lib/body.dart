@@ -110,8 +110,9 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                                 children: [
                                   IconTheme(
                                     data: IconThemeData(
-                                      color:
-                                          !_isMale ? Colors.grey : Colors.white,
+                                      color: !_isMale
+                                          ? Color(0xff8D8E98)
+                                          : Colors.white,
                                       size: 130,
                                     ),
                                     child: Icon(
@@ -124,8 +125,9 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 20,
-                                      color:
-                                          !_isMale ? Colors.grey : Colors.white,
+                                      color: !_isMale
+                                          ? Color(0xff8D8E98)
+                                          : Colors.white,
                                     ),
                                   ),
                                 ],
@@ -157,7 +159,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                                     child: IconTheme(
                                       data: IconThemeData(
                                           color: !_isFemale
-                                              ? Colors.grey
+                                              ? Color(0xff8D8E98)
                                               : Colors.white,
                                           size: 130),
                                       child: Icon(MdiIcons.genderFemale),
@@ -169,8 +171,8 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 20,
-                                      color: _isFemale
-                                          ? Colors.grey
+                                      color: !_isFemale
+                                          ? Color(0xff8D8E98)
                                           : Colors.white,
                                     ),
                                   ),
@@ -210,7 +212,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                       ),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -236,6 +238,9 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                           ),
                         )
                       ],
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(

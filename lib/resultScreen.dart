@@ -35,7 +35,7 @@ class ResultScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 25),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Text(
                       'Your Result',
                       style: TextStyle(
@@ -86,7 +86,7 @@ class ResultScreen extends StatelessWidget {
                             'Normal BMI Range:',
                             style: TextStyle(
                                 letterSpacing: 2,
-                                color: Color(0xff8E8F99),
+                                color: Color(0xff868792),
                                 fontSize: 23,
                                 fontWeight: FontWeight.w400),
                           ),
