@@ -1,254 +1,322 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/welcome.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-main() {
+import 'body.dart';
+
+void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BasicDesign(),
-    );
+    // return MaterialApp(home: BmiCalculator(title: 'BMI CALCULATOR'));
+    return MaterialApp(home: BmiCalculator());
   }
 }
 
-class BasicDesign extends StatefulWidget {
-  @override
-  _BasicDesignState createState() => _BasicDesignState();
-}
+// class BmiCalculator extends StatefulWidget {
+//   BmiCalculator({Key key, this.title}) : super(key: key);
 
-class _BasicDesignState extends State<BasicDesign> {
-  final _formKey = GlobalKey<FormState>();
+//   final String title;
 
-  var emailController = TextEditingController();
+//   @override
+//   _BmiCalculatorState createState() => _BmiCalculatorState();
+// }
 
-  var passwordController = TextEditingController();
+// class _BmiCalculatorState extends State<BmiCalculator> {
+//   int currentindex = 0;
+//   double _value = 0;
+//   int _counter = 0;
+//   int _age = 0;
+//   var weightInput = TextEditingController();
+//   var ageInput = TextEditingController();
 
-  bool isEmail = false;
-  bool isPassword = false;
-  bool isLoading = false;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      // appBar: AppBar(),
-      backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          SizedBox(
-            height: 150,
-          ),
-          Text(
-            'Sign In',
-            style: TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700),
-          ),
-          SizedBox(
-            height: 82,
-          ),
-          Text(
-            'welcome back'.toUpperCase(),
-            style: TextStyle(
-                color: Colors.white, fontSize: 11, fontWeight: FontWeight.w500),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    TextFormField(
-                      controller: emailController,
-                      autocorrect: true,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        alignLabelWithHint: true,
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Email address',
-                        hintStyle: TextStyle(fontSize: 12),
-                        suffixIcon: _getIconEmail()
-                            ? Container(
-                                margin: EdgeInsets.all(20),
-                                padding: EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child: Icon(
-                                  Icons.check,
-                                  size: 12,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : SizedBox(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          print('email is null');
-                          return 'Please enter email address';
-                        }
-                        if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(value) !=
-                            true) {
-                          return 'Field must be a valid email';
-                        }
-                        setState(() {
-                          isEmail = RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                              .hasMatch(value);
-                          print('$isEmail');
-                        });
-                        print('function ${_getIconEmail()}');
-                        return null;
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      controller: passwordController,
-                      autocorrect: true,
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        alignLabelWithHint: true,
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Password',
-                        hintStyle: TextStyle(fontSize: 12),
-                        suffixIcon: _getIconPass()
-                            ? Container(
-                                margin: EdgeInsets.all(20),
-                                padding: EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child: Icon(
-                                  Icons.check,
-                                  size: 12,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : SizedBox(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter password';
-                        }
-                        if (RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                                .hasMatch(value) !=
-                            true) {
-                          return 'Include atleast one Capital, Symbol, Number';
-                        }
-                        setState(() {
-                          isPassword = RegExp(
-                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                              .hasMatch(value);
-                        });
-                        print('function pass ${_getIconPass()}');
-                        return null;
-                      },
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            setState(() {
-                            isLoading = true;
-                              Duration(seconds: 5);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Dashboard(
-                                          email: emailController.text)));
-                            });
-                          }
-                        },                      
-                        child: _getAnimi()
-                            ? AnimatedContainer(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: CircularProgressIndicator(
-                                    backgroundColor: Colors.black87,
-                                  ),
-                                ),
-                                duration: Duration(seconds: 3))
-                            : Text('Sign In'),
-                        style: ButtonStyle(backgroundColor: _getIconPass() ? Theme.of(context).elevatedButtonTheme.style : MaterialStateProperty.all(Colors.blueAccent.withOpacity(0.30)),
-                    )),
-                    SizedBox(
-                      height: 28,
-                    ),
-                  ],
-                ),
-              )),
-          Text(
-            'Forgot Password?',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-            ),
-          ),
-          SizedBox(
-            height: 4,
-          ),
-          Text(
-            'Reset Password',
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 10,
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-        ],
-      ),
-    );
-  }
+//   void _incrementCounter(value) {
+//     _counter += int.parse(value);
+//     setState(() {
+//       _counter++;
+//     });
+//   }
 
-  bool _getIconEmail() {
-    if (isEmail) {
-      return isEmail;
-    } else {
-      return false;
-    }
-  }
+//   void _decrementCounter(value) {
+//     _counter += int.parse(value);
+//     setState(() {
+//       _counter--;
+//     });
+//   }
 
-  bool _getIconPass() {
-    if (isPassword) {
-      return isPassword;
-    } else {
-      return false;
-    }
-  }
+//   // void _incrementAge() {
+//   //   setState(() {
+//   //     _age++;
+//   //   });
+//   // }
 
-  bool _getAnimi() {
-    if (isLoading) {
-      return isLoading;
-    } else {
-      return false;
-    }
-  }
-}
+//   // void _decrementAge() {
+//   //   setState(() {
+//   //     _age--;
+//   //   });
+//   // }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Scaffold(
+//         resizeToAvoidBottomInset: false,
+//           backgroundColor: Color(0xff090b1e),
+//           appBar: AppBar(
+//             backgroundColor: Color(0xff0A0D22),
+//             leading: Icon(Icons.sort),
+//             title: Text(
+//               widget.title,
+//               textAlign: TextAlign.center,
+//               style: TextStyle(fontSize: 18),
+//             ),
+//           ),
+//           body: Padding(
+//             padding: EdgeInsets.symmetric(horizontal: 15),
+//             child: Container(
+//               child: Column(children: [
+//                 Spacer(),
+//                 Container(
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       Container(
+//                           height: 150,
+//                           width: 170,
+//                           decoration: BoxDecoration(
+//                             color: Color(0xff1D1F33),
+//                             shape: BoxShape.rectangle,
+//                             borderRadius: BorderRadius.circular(5),
+//                           ),
+//                           child: Column(
+//                             crossAxisAlignment: CrossAxisAlignment.center,
+//                             children: [
+//                               SizedBox(height: 10),
+//                               IconTheme(
+//                                 data: IconThemeData(
+//                                     color: Colors.white, size: 80),
+//                                 child: Icon(MdiIcons.genderMale),
+//                               ),
+//                               SizedBox(height: 5),
+//                               Text("MALE",
+//                                   style: TextStyle(
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 20,
+//                                     color: Colors.white,
+//                                   ))
+//                             ],
+//                           )),
+//                       SizedBox(width: 7.0),
+//                       Container(
+//                           height: 150,
+//                           width: 170,
+//                           decoration: BoxDecoration(
+//                             color: Color(0xff1D1F33),
+//                             shape: BoxShape.rectangle,
+//                             borderRadius: BorderRadius.circular(5),
+//                           ),
+//                           child: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.center,
+//                               children: [
+//                                 SizedBox(
+//                                   height: 5,
+//                                 ),
+//                                 RotationTransition(
+//                                   turns: new AlwaysStoppedAnimation(40 / 360),
+//                                   child: IconTheme(
+//                                     data: IconThemeData(
+//                                         color: Colors.white, size: 80),
+//                                     child: Icon(MdiIcons.genderFemale),
+//                                   ),
+//                                 ),
+//                                 SizedBox(height: 7),
+//                                 Text("FEMALE",
+//                                     style: TextStyle(
+//                                       fontWeight: FontWeight.bold,
+//                                       fontSize: 20,
+//                                       color: Colors.white,
+//                                     ))
+//                               ]))
+//                     ],
+//                   ),
+//                 ),
+//                 Spacer(),
+//                 // SizedBox(height: 15),
+//                 Container(
+//                   //margin: EdgeInsets.symmetric(horizontal: 40),
+//                   height: 160,
+//                   width: 350,
+//                   decoration: BoxDecoration(
+//                     color: Color(0xff1D1F33),
+//                     shape: BoxShape.rectangle,
+//                   ),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: [
+//                       SizedBox(height: 20),
+//                       Text("HEIGHT",
+//                           style: TextStyle(
+//                               fontWeight: FontWeight.bold,
+//                               fontSize: 20,
+//                               color: Color(0xff868892))),
+//                       RichText(
+//                           text: TextSpan(
+//                         text: '${(_value).round()} ',
+//                         style: TextStyle(
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: 50,
+//                             color: Color(0xffffffff)),
+//                         children: [
+//                           TextSpan(
+//                               text: 'cm',
+//                               style: TextStyle(
+//                                   fontWeight: FontWeight.bold,
+//                                   fontSize: 20,
+//                                   color: Color(0xff868892))),
+//                         ],
+//                       )),
+//                       Slider(
+//                           min: 0,
+//                           max: 200,
+//                           onChanged: (double newValue) {
+//                             setState(() {
+//                               _value = newValue;
+//                             });
+//                           },
+//                           inactiveColor: Colors.grey,
+//                           activeColor: Colors.redAccent,
+//                           value: _value)
+//                     ],
+//                   ),
+//                 ),
+//                 Spacer(),
+//                 SizedBox(height: 15),
+//                 Container(
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       Container(
+//                         height: 170,
+//                         width: 170,
+//                         decoration: BoxDecoration(
+//                           color: Color(0xff1D1F33),
+//                           shape: BoxShape.rectangle,
+//                           borderRadius: BorderRadius.circular(5),
+//                         ),
+//                         child: Column(
+//                           children: [
+//                             SizedBox(height: 20),
+//                             Text("WEIGHT",
+//                                 style: TextStyle(
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 23,
+//                                     color: Color(0xff868892))),
+//                             // Text(
+//                             //   '$_counter',
+//                             //   style: Theme.of(context).textTheme.headline4,
+//                             // ),
+//                             TextField(
+//                               controller: weightInput,
+//                               decoration: InputDecoration(                             
+                                
+//                                 hintText: '74',
+//                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 40),
+//                                 contentPadding: EdgeInsets.all(0),
+
+//                               ),
+//                             ),
+//                             Container(
+//                               child: Row(
+//                                 mainAxisAlignment: MainAxisAlignment.center,
+//                                 children: [
+//                                   FloatingActionButton(
+//                                     onPressed: () => _decrementCounter(weightInput.text),
+//                                     tooltip: "Decrement",
+//                                     backgroundColor: Color(0xff1C1F32),
+//                                     child: Icon(Icons.remove),
+//                                   ),
+//                                   SizedBox(width: 7),
+//                                   FloatingActionButton(
+//                                     onPressed: () => _incrementCounter(weightInput.text),
+//                                     tooltip: "Increment",
+//                                     backgroundColor: Color(0xff1C1F32),
+//                                     child: Icon(Icons.add),
+//                                   )
+//                                 ],
+//                               ),
+//                             )
+//                           ],
+//                         ),
+//                       ),
+//                       SizedBox(width: 7),
+//                       Container(
+//                         height: 170,
+//                         width: 170,
+//                         decoration: BoxDecoration(
+//                           color: Color(0xff1D1F33),
+//                           shape: BoxShape.rectangle,
+//                           borderRadius: BorderRadius.circular(5),
+//                         ),
+//                         child: Column(
+//                           children: [
+//                             SizedBox(height: 20),
+//                             Text("AGE",
+//                                 style: TextStyle(
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 23,
+//                                     color: Color(0xff868892))),
+//                             Text(
+//                               '$_age',
+//                               style: Theme.of(context).textTheme.headline4,
+//                             ),
+//                             Container(
+//                               child: Row(
+//                                 mainAxisAlignment: MainAxisAlignment.center,
+//                                 children: [
+//                                   FloatingActionButton(
+//                                     onPressed: () => _decrementCounter(weightInput.text),
+//                                     tooltip: "Decrement",
+//                                     backgroundColor: Color(0xff1C1F32),
+//                                     child: Icon(Icons.remove),
+//                                   ),
+//                                   SizedBox(width: 7),
+//                                   FloatingActionButton(
+//                                     onPressed: () => _incrementCounter(weightInput.text),
+//                                     tooltip: "Increment",
+//                                     backgroundColor: Color(0xff1C1F32),
+//                                     child: Icon(Icons.add),
+//                                   )
+//                                 ],
+//                               ),
+//                             )
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   height: 60,
+//                 ),
+//                 SizedBox(
+//                   height: 45,
+//                   width: 500,
+//                   child: ElevatedButton(
+//                     onPressed: () {},
+//                     style: ButtonStyle(
+//                         backgroundColor:
+//                             MaterialStateProperty.all(Color(0xffEB1555))),
+//                     // color: Color(0xffEB1555),
+//                     child: Text("CALCULATE YOUR BMI",
+//                         style: TextStyle(color: Colors.white)),
+//                   ),
+//                 )
+//               ]),
+//             ),
+//           )),
+//     );
+//   }
+// }
