@@ -48,7 +48,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
         if (_age == 0) {
           return null;
         } else
-          (_age--);
+          _age--;
       },
     );
   }
@@ -60,7 +60,10 @@ class _BmiCalculatorState extends State<BmiCalculator> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: Text('BMI CALCLULATOR'),
+          child: Text(
+            'BMI CALCLULATOR',
+            style: TextStyle(fontSize: 18),
+          ),
         ),
         backgroundColor: Color(0xff0A0D22),
         elevation: 40,
@@ -68,12 +71,17 @@ class _BmiCalculatorState extends State<BmiCalculator> {
           padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Icon(
             Icons.sort,
-            size: 40,
+            size: 35,
           ),
         ),
       ),
       body: SafeArea(
+        bottom: true,
+        left: true,
+        right: true,
+        top: true,
         child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               Container(
@@ -99,8 +107,10 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                               );
                             },
                             child: Container(
-                              height: 190,
-                              width: 190,
+                              height:
+                                  MediaQuery.of(context).size.height / 100 * 20,
+                              width:
+                                  MediaQuery.of(context).size.width / 100 * 45,
                               decoration: BoxDecoration(
                                   color: Color(0xff1D1F33),
                                   shape: BoxShape.rectangle,
@@ -108,23 +118,34 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              100 *
+                                              2),
                                   IconTheme(
                                     data: IconThemeData(
                                       color: !_isMale
                                           ? Color(0xff8D8E98)
                                           : Colors.white,
-                                      size: 130,
+                                      size: MediaQuery.of(context).size.width /
+                                          100 *
+                                          20,
                                     ),
                                     child: Icon(
                                       MdiIcons.genderMale,
                                     ),
                                   ),
-                                  SizedBox(height: 20),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              100 *
+                                              2),
                                   Text(
                                     'MALE',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
                                       color: !_isMale
                                           ? Color(0xff8D8E98)
                                           : Colors.white,
@@ -145,32 +166,44 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                               );
                             },
                             child: Container(
-                              height: 190,
-                              width: 190,
+                              height:
+                                  MediaQuery.of(context).size.height / 100 * 20,
+                              width:
+                                  MediaQuery.of(context).size.width / 100 * 45,
                               decoration: BoxDecoration(
                                   color: Color(0xff1D1F33),
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(5)),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                // crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              100 *
+                                              2),
                                   RotationTransition(
+                                    alignment: Alignment(0.4, -0.1),
                                     turns: new AlwaysStoppedAnimation(40 / 360),
                                     child: IconTheme(
                                       data: IconThemeData(
                                           color: !_isFemale
                                               ? Color(0xff8D8E98)
                                               : Colors.white,
-                                          size: 130),
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              100 *
+                                              24),
                                       child: Icon(MdiIcons.genderFemale),
                                     ),
                                   ),
-                                  SizedBox(height: 20),
+                                  // SizedBox(height: MediaQuery.of(context).size.height / 100 * 0),
                                   Text(
                                     'FEMALE',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
                                       color: !_isFemale
                                           ? Color(0xff8D8E98)
                                           : Colors.white,
@@ -188,31 +221,31 @@ class _BmiCalculatorState extends State<BmiCalculator> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(
-                  horizontal: 20,
+                  horizontal: 17,
                 ),
-                height: 180,
+                height: MediaQuery.of(context).size.height / 100 * 23,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Color(0xff1D1F33),
+                    color: Color(0xff1D1F33).withOpacity(0.50),
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 25,
+                      height: MediaQuery.of(context).size.height / 100 * 2,
                     ),
                     Text(
                       'HEIGHT',
                       style: TextStyle(
                         fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 20,
-                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Color(0xff8D8E98),
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 2,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -221,9 +254,9 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                           text: TextSpan(
                             children: <TextSpan>[
                               TextSpan(
-                                text: ('${(_value).round()} '),
+                                text: ('${(_value).round()}'),
                                 style: TextStyle(
-                                    fontSize: 60,
+                                    fontSize: 50,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
@@ -231,8 +264,8 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                                 text: ('cm '),
                                 style: TextStyle(
                                     fontSize: 20,
-                                    fontWeight: FontWeight.w100,
-                                    color: Colors.white),
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff8D8E98)),
                               ),
                             ],
                           ),
@@ -240,19 +273,21 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                       ],
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 8,
                     ),
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(
-                        // showValueIndicator: ShowValueIndicator.always,
+                        showValueIndicator: ShowValueIndicator.always,
                         inactiveTrackColor: Color(0xFF8D8E98),
                         activeTrackColor: Colors.white,
                         thumbColor: Color(0xFFEB1555),
                         overlayColor: Color(0x29EB1555),
                         thumbShape:
-                            RoundSliderThumbShape(enabledThumbRadius: 20.0),
-                        overlayShape:
-                            RoundSliderOverlayShape(overlayRadius: 20.0),
+                            RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                        overlayShape: RoundSliderOverlayShape(
+                          overlayRadius: 24.0,
+                        ),
+                        trackHeight: 1.5,
                       ),
                       child: Slider(
                         value: _value,
@@ -276,26 +311,27 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: 220,
-                      width: 190,
+                      height: MediaQuery.of(context).size.height / 100 * 24,
+                      width: MediaQuery.of(context).size.width / 100 * 45,
                       decoration: BoxDecoration(
-                        color: Color(0xff1D1F33),
+                        color: Color(0xff1D1F33).withOpacity(0.50),
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Column(
                         children: [
-                          SizedBox(height: 40),
+                          SizedBox(height: 18),
                           Text("WEIGHT",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 23,
-                                  color: Colors.white)),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  color: Color(0xff8D8E98))),
                           Text('$_counter',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 73,
+                                  fontSize: 60,
                                   color: Colors.white)),
+                                  SizedBox(height: 5),
                           Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -306,7 +342,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                                   backgroundColor: Color(0xff1C1F32),
                                   child: Icon(Icons.remove, size: 40),
                                 ),
-                                SizedBox(width: 27),
+                                SizedBox(width: 15),
                                 FloatingActionButton(
                                   onPressed: _incrementCounter,
                                   tooltip: "Increment",
@@ -321,28 +357,29 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                     ),
                     SizedBox(width: 7),
                     Container(
-                      height: 220,
-                      width: 190,
+                      height: MediaQuery.of(context).size.height / 100 * 24,
+                      width: MediaQuery.of(context).size.width / 100 * 45,
                       decoration: BoxDecoration(
-                        color: Color(0xff1D1F33),
+                        color: Color(0xff1D1F33).withOpacity(0.50),
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Column(
                         children: [
-                          SizedBox(height: 40),
+                          SizedBox(height: 20),
                           Text("AGE",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 23,
-                                  color: Colors.white)),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  color: Color(0xff8D8E98))),
                           Text(
                             '$_age',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 73,
+                                fontSize: 60,
                                 color: Colors.white),
                           ),
+                            SizedBox(height: 5),
                           Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -356,7 +393,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                                     size: 40,
                                   ),
                                 ),
-                                SizedBox(width: 27),
+                                SizedBox(width: 15),
                                 FloatingActionButton(
                                   onPressed: _incrementAge,
                                   tooltip: "Increment",
@@ -375,7 +412,22 @@ class _BmiCalculatorState extends State<BmiCalculator> {
               SizedBox(
                 height: 22,
               ),
-              DefualtButton(
+              // DefualtButton(
+              //   text: "CALCULATE YOUR BMI",
+              //   press: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (BuildContext context) => ResultScreen(),
+              //       ),
+              //     );
+              //   },
+              // ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: DefualtButton(
                 text: "CALCULATE YOUR BMI",
                 press: () {
                   Navigator.push(
@@ -386,10 +438,6 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                   );
                 },
               ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

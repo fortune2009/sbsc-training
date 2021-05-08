@@ -35,13 +35,13 @@ class ResultScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 25),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       'Your Result',
                       style: TextStyle(
                           letterSpacing: 2,
                           color: Colors.white,
-                          fontSize: 40,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -49,10 +49,10 @@ class ResultScreen extends StatelessWidget {
                     height: 35,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Container(
-                      height: 500,
-                      width: 390,
+                      height: MediaQuery.of(context).size.height / 100 * 60,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: Color(0xff1D1F33),
                         borderRadius: BorderRadius.circular(5),
@@ -68,7 +68,7 @@ class ResultScreen extends StatelessWidget {
                             style: TextStyle(
                                 letterSpacing: 1,
                                 color: Color(0xff22E67B),
-                                fontSize: 23,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w500),
                           ),
                           SizedBox(
@@ -82,6 +82,9 @@ class ResultScreen extends StatelessWidget {
                                 fontSize: 90,
                                 fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Text(
                             'Normal BMI Range:',
                             style: TextStyle(
@@ -91,7 +94,7 @@ class ResultScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w400),
                           ),
                           SizedBox(
-                            height: 25,
+                            height: 5,
                           ),
                           Text(
                             '18,5 - 25 kg/m2',
@@ -119,7 +122,7 @@ class ResultScreen extends StatelessWidget {
                             height: 75,
                             width: 270,
                             child: RaisedButton(
-                              onPressed: () {},
+                              onPressed: () {  },
                               color: Color(0xff181a2e),
                               child: Text(
                                 "SAVE RESULT",
@@ -142,19 +145,19 @@ class ResultScreen extends StatelessWidget {
             SizedBox(
               height: 68,
             ),
-            DefualtButton(
-              text: "RE-CALCULATE YOUR BMI",
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => BmiCalculator(),
-                  ),
-                );
-              },
-            ),
           ],
         ),
+      ),
+      bottomNavigationBar: DefualtButton(
+        text: "RE-CALCULATE YOUR BMI",
+        press: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => BmiCalculator(),
+            ),
+          );
+        },
       ),
     );
   }
