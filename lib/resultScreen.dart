@@ -26,6 +26,7 @@ class ResultScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -79,7 +80,7 @@ class ResultScreen extends StatelessWidget {
                             style: TextStyle(
                                 letterSpacing: 5,
                                 color: Colors.white,
-                                fontSize: 90,
+                                fontSize:80,
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
@@ -119,7 +120,7 @@ class ResultScreen extends StatelessWidget {
                             height: 35,
                           ),
                           SizedBox(
-                            height: 75,
+                            height: 50,
                             width: 270,
                             child: RaisedButton(
                               onPressed: () {  },
