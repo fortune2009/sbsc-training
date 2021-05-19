@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -19,8 +20,36 @@ class TodoList extends StatefulWidget {
 class _TodoListState extends State<TodoList> {
   TextEditingController _titleController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
 
+  String deadlineDateInString = 'Pick a deadline';
+  String deadlineTimeInString = 'Pick Time';
+  DateTime deadlineDate;
+  TimeOfDay deadlineTime;
+  bool isDateSelected;
+  bool isTimeSelected;
   bool _isDone = false;
+
+  List forListView = [];
+
+  List newAddToList = [];
+
+  setNewAddToList(value) {
+    setState(() {
+      newAddToList.addAll(value);
+    });
+  }
+
+  List get getNewAddToList => newAddToList;
+
+  setForListView(value) {
+    setState(() {
+      forListView.add(value);
+    });
+  }
+
+  List get getForListView => forListView;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +141,65 @@ class _TodoListState extends State<TodoList> {
                             ),
                             vSize15,
                             Row(
-                              children: [],
+                              children: [
+                                SizedBox(
+                                    width: 150,
+                                    child: TextField(
+                                        controller: _dateController,
+                                        decoration: InputDecoration(
+                                          labelText: 'Pick a deadline',
+                                        ),
+                                        readOnly: true,
+                                        onTap: () async {
+                                          final datePick = await showDatePicker(
+                                              context: context,
+                                              initialDate: new DateTime.now(),
+                                              firstDate: new DateTime(1900),
+                                              lastDate: new DateTime(2100));
+                                          if (datePick != null &&
+                                              datePick != deadlineDate) {
+                                            setState(() {
+                                              deadlineDate = datePick;
+                                              isDateSelected = true;
+
+                                              // put it here
+                                              deadlineDateInString =
+                                                  "${deadlineDate.month}/${deadlineDate.day}/${deadlineDate.year}"; // 08/14/2019
+                                              _dateController.text =
+                                                  deadlineDateInString;
+                                            });
+                                          }
+                                        })),
+                                hSize10,
+                                SizedBox(
+                                  width: 100,
+                                  child: TextField(
+                                      controller: _timeController,
+                                      decoration: InputDecoration(
+                                        labelText: 'Pick Time',
+                                      ),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        final timePick = await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay.now(),
+                                        );
+
+                                        if (timePick != null &&
+                                            timePick != deadlineTime) {
+                                          setState(() {
+                                            deadlineTime = timePick;
+                                            isDateSelected = true;
+                                            // put it here
+                                            deadlineTimeInString =
+                                                "${deadlineTime.hour}:${deadlineTime.minute}"; //
+                                            _timeController.text =
+                                                deadlineTimeInString;
+                                          });
+                                        }
+                                      }),
+                                ),
+                              ],
                             ),
                             vSize15,
                             Row(
@@ -130,7 +217,20 @@ class _TodoListState extends State<TodoList> {
                                 hSize15,
                                 Expanded(
                                   child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        List list = [
+                                          _titleController.text,
+                                          _descriptionController.text,
+                                          _dateController.text,
+                                          _timeController.text
+                                        ];
+                                        setState(() {
+                                          setNewAddToList(list);
+                                          print('list $list');
+                                        });
+
+                                        Navigator.pop(context);
+                                      },
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all(
@@ -156,13 +256,54 @@ class _TodoListState extends State<TodoList> {
 
   _todoListView() {
     return ListView.separated(
-      itemBuilder: (context, index) => _buildTodo(),
+      itemBuilder: (context, index) => Slidable(
+        secondaryActions: [
+          IconSlideAction(
+            color: kBlack,
+            icon: Icons.edit_outlined,
+            onTap: () {},
+          ),
+          IconSlideAction(
+            color: kPink,
+            icon: Icons.remove_circle_outline_sharp,
+            onTap: () {},
+          ),
+        ],
+        actionExtentRatio: 0.15,
+        actionPane: SlidableDrawerActionPane(),
+        child: Container(
+            child: ListTileTheme(
+          child: ListTile(
+            leading: _isDone
+                ? Icon(
+                    Icons.done_rounded,
+                    color: kGreen,
+                  )
+                : IconButton(
+                    icon: Icon(
+                      Icons.star_border_outlined,
+                      color: widget.categoryColor,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isDone = true;
+                      });
+                    },
+                  ),
+            title: Text(getForListView[index][0]),
+            subtitle: Text(
+              getForListView[index][0],
+              style: h3Style.copyWith(color: kBlack),
+            ),
+          ),
+        )),
+      ),
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
           color: kGrey,
         );
       },
-      itemCount: 2,
+      itemCount: getForListView.length,
     );
   }
 
