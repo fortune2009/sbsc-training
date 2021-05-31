@@ -39,12 +39,16 @@ class _TodoListState extends State<TodoList> {
   List newAddToList = [];
 
   Todo todo = new Todo();
-  TodoProvider todoProvider;
 
   @override
   initState() {
     super.initState();
-    todoProvider = TodoProvider.instance;
+    getTodo();
+  }
+
+  Future getTodo() async {
+    forListView = await TodoProvider.instance.getAllTodo();
+    print('All db lis $forListView');
   }
 
   setNewAddToList(Todo value) async {
@@ -52,10 +56,13 @@ class _TodoListState extends State<TodoList> {
     setState(() {
       if (value != null && !newAddToList.contains(value)) {
         newAddToList.add(value);
-        todoProvider?.insert(value);
-        print('hewo $newAddToList');
       }
     });
+    await insert(value);
+  }
+
+  Future insert(Todo todo) async {
+    await TodoProvider.instance.insert(todo);
   }
 
   List get getNewAddToList => newAddToList;
@@ -109,7 +116,6 @@ class _TodoListState extends State<TodoList> {
   }
 
   _todoListView() {
-    var dbData;
     return ListView.separated(
       itemBuilder: (context, index) {
         return Slidable(
@@ -197,7 +203,7 @@ class _TodoListState extends State<TodoList> {
   }
 
   _dialogShow({bool clear}) {
-    // clear == true ? clearController() : DoNothingAction();
+    clear == true ? clearController() : DoNothingAction();
     showDialog(
         context: context,
         builder: (index) => Dialog(
@@ -341,6 +347,6 @@ class _TodoListState extends State<TodoList> {
   @override
   dispose() {
     super.dispose();
-    todoProvider.close();
+    TodoProvider.instance.close();
   }
 }
