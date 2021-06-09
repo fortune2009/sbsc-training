@@ -11,13 +11,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  flutter_svg: any
-  flutter_swiper: any
-  flutter_slidable: any
-  intl: any
-  sqflite: any
-  path_provider: any
+  cupertino_icons:
+  flutter_svg:
+  flutter_swiper:
+  flutter_slidable:
+  intl:
+  sqflite:
+  path_provider:
+  firebase_core:
+  firebase_auth:
   
 dev_dependencies:
   flutter_test:
